@@ -65,7 +65,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.MANIFEST_REPO_TOKEN }}
-          repository: your-github-username/kustomize-manifests
+          repository: jeffmingup/kustomize-manifests-demo
           event-type: update-dev
           client-payload: '{"image_tag":"${{ steps.deploy_tag.outputs.value }}"}'
 
