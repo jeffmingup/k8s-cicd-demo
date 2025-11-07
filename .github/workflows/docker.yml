@@ -53,3 +53,19 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Determine deploy tag
+        id: deploy_tag
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          TAG="sha-${GITHUB_SHA::7}"
+          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger manifest repository update
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.MANIFEST_REPO_TOKEN }}
+          repository: your-github-username/kustomize-manifests
+          event-type: update-dev
+          client-payload: '{"image_tag":"${{ steps.deploy_tag.outputs.value }}"}'
+
