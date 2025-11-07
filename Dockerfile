@@ -4,8 +4,8 @@ FROM golang:1.22 AS builder
 
 WORKDIR /app
 
-COPY web/go.mod ./
-COPY web/ ./
+COPY go.mod ./
+COPY . ./
 
 RUN go build -o server
 

@@ -22,7 +22,6 @@ jobs:
 
       - name: Run tests
         run: go test ./...
-        working-directory: web
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
