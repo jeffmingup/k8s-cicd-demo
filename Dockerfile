@@ -13,6 +13,9 @@ WORKDIR /app
 
 COPY --from=builder /app/server ./server
 
+# 设置时区
+ENV TZ=Asia/Shanghai
+
 EXPOSE 8080
 
 USER nonroot:nonroot
